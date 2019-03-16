@@ -20,6 +20,15 @@ class Nastya(object):
     def draw(self, surface):
         surface.blit(self.sprite, (self.x, self.y))
 
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            global score
+            mouse_pos = pygame.mouse.get_pos()
+
+            if self.x <= mouse_pos[0] <= self.x + self.width\
+                    and self.y <= mouse_pos[1] <= self.y + self.height:
+                score += 1
+
 
 nastya = Nastya()
 
@@ -40,8 +49,7 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            score += 1
+        nastya.handle_event(event)
 
     draw_window()
 
