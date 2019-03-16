@@ -8,6 +8,7 @@ win = pygame.display.set_mode((1000, 1000))
 
 pygame.display.set_caption("Rofl clicker")
 
+click_power = 1
 
 class Nastya(object):
     def __init__(self):
@@ -27,7 +28,7 @@ class Nastya(object):
 
             if self.x <= mouse_pos[0] <= self.x + self.width\
                     and self.y <= mouse_pos[1] <= self.y + self.height:
-                score += 1
+                score += click_power
 
 
 nastya = Nastya()
