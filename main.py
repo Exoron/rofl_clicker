@@ -3,7 +3,8 @@ import pygame
 pygame.init()
 pygame.font.init()
 
-font_consolas = pygame.font.SysFont('Consolas', 40)
+score_font = pygame.font.SysFont('Consolas', 40)
+shop_button_font = pygame.font.SysFont('Consolas', 45)
 win = pygame.display.set_mode((1800, 950))
 
 pygame.display.set_caption("Rofl clicker")
@@ -40,11 +41,16 @@ class shop_button(object):
         self.name = name
         self.price = price
 
-    def draw(self, surface, y):
-        pygame.draw.rect(surface, (200, 200, 200), (1800 - self.width - 10,
-                                                    y + self.height + 10,
-                                                    self.width,
+    def draw(self, surface, indent):
+        x = 1800 - self.width - 10
+        y = indent + self.height + 10
+        pygame.draw.rect(surface, (200, 200, 200), (x, y, self.width,
                                                     self.height))
+        button_text = shop_button_font.render('{}'.format(self.name), False,
+                                              (0, 0, 0))
+        surface.blit(button_text, (x + self.height + 10,
+                                   y + (self.height -
+                                        shop_button_font.get_height()) // 2))
 
     def handle_event(self, event):
         pass
@@ -62,8 +68,8 @@ def draw_window():
     nastya.draw(win)
     for index in range(len(shop_buttons)):
         shop_buttons[index].draw(win, 70 * index)
-    score_text = font_consolas.render('Score: {}'.format(score), False, (0, 0,
-                                                                         0))
+    score_text = score_font.render('Score: {}'.format(score), False, (0, 0,
+                                                                      0))
     win.blit(score_text, (200, 50))
     pygame.display.update()
 
