@@ -4,11 +4,12 @@ pygame.init()
 pygame.font.init()
 
 font_consolas = pygame.font.SysFont('Consolas', 40)
-win = pygame.display.set_mode((1000, 1000))
+win = pygame.display.set_mode((1800, 950))
 
 pygame.display.set_caption("Rofl clicker")
 
 click_power = 1
+
 
 class Nastya(object):
     def __init__(self):
@@ -26,10 +27,32 @@ class Nastya(object):
             global score
             mouse_pos = pygame.mouse.get_pos()
 
-            if self.x <= mouse_pos[0] <= self.x + self.width\
+            if self.x <= mouse_pos[0] <= self.x + self.width \
                     and self.y <= mouse_pos[1] <= self.y + self.height:
                 score += click_power
 
+
+class shop_button(object):
+    def __init__(self, name, price):
+        self.height = 60
+        self.width = 500
+        self.number = 0
+        self.name = name
+        self.price = price
+
+    def draw(self, surface, y):
+        pygame.draw.rect(surface, (200, 200, 200), (1800 - self.width - 10,
+                                                    y + self.height + 10,
+                                                    self.width,
+                                                    self.height))
+
+    def handle_event(self, event):
+        pass
+
+
+shop_buttons = [shop_button('shop_button', 10), shop_button('shop_button',
+                                                            10),
+                shop_button('shop_button', 10)]
 
 nastya = Nastya()
 
@@ -37,6 +60,8 @@ nastya = Nastya()
 def draw_window():
     win.fill((128, 0, 255))
     nastya.draw(win)
+    for index in range(len(shop_buttons)):
+        shop_buttons[index].draw(win, 70 * index)
     score_text = font_consolas.render('Score: {}'.format(score), False, (0, 0,
                                                                          0))
     win.blit(score_text, (200, 50))
