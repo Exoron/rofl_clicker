@@ -2,8 +2,8 @@ import pygame
 
 pygame.init()
 pygame.font.init()
-font_consolas = pygame.font.SysFont('Consolas', 40)
 
+font_consolas = pygame.font.SysFont('Consolas', 40)
 win = pygame.display.set_mode((1000, 1000))
 
 pygame.display.set_caption("Rofl clicker")
@@ -27,6 +27,8 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            score += 1
 
     draw_window()
 
