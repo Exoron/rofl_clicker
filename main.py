@@ -5,7 +5,7 @@ pygame.font.init()
 
 score_font = pygame.font.SysFont('Consolas', 40)
 shop_button_font = pygame.font.SysFont('Consolas', 45)
-win = pygame.display.set_mode((1800, 950))
+win = pygame.display.set_mode((1800, 900))
 
 pygame.display.set_caption("Rofl clicker")
 
@@ -33,7 +33,7 @@ class Nastya(object):
                 score += click_power
 
 
-class shop_button(object):
+class ShopButton(object):
     def __init__(self, name, price):
         self.height = 60
         self.width = 500
@@ -42,12 +42,15 @@ class shop_button(object):
         self.price = price
 
     def draw(self, surface, indent):
-        x = 1800 - self.width - 10
+        x = win.get_width() - self.width - 10
         y = indent + self.height + 10
         pygame.draw.rect(surface, (200, 200, 200), (x, y, self.width,
                                                     self.height))
         button_text = shop_button_font.render('{}'.format(self.name), False,
                                               (0, 0, 0))
+        #Размещает текст на кнопке
+        #Отступ слева чуть больше высоты кнопки
+        #По высоте текст размещается ровно посередине кнопки
         surface.blit(button_text, (x + self.height + 10,
                                    y + (self.height -
                                         shop_button_font.get_height()) // 2))
@@ -56,9 +59,9 @@ class shop_button(object):
         pass
 
 
-shop_buttons = [shop_button('shop_button', 10), shop_button('shop_button',
-                                                            10),
-                shop_button('shop_button', 10)]
+shop_buttons = [ShopButton('shop_button', 10), ShopButton('shop_button',
+                                                          10),
+                ShopButton('shop_button', 10)]
 
 nastya = Nastya()
 
@@ -76,12 +79,15 @@ def draw_window():
 
 score = 0
 
-run = True
-while run:
+close = False
+while __name__ == '__main__':
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run = False
+            close = True
+            break
         nastya.handle_event(event)
+    if close:
+        break
 
     draw_window()
 
