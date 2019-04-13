@@ -1,5 +1,5 @@
 class GameObject(object):
-    def draw(self, surface, coords):
+    def draw(self):
         raise NotImplementedError
 
     def handle_event(self, event):
